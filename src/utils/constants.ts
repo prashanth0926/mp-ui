@@ -22,9 +22,9 @@ export const DEFAULT_TIMEOUT_MILLI = 150;
 
 export const LOCATION_API = 'https://ipapi.co/json/';
 export const COMMANDS_API = 'https://api.npoint.io/a8174bdf8a908f1dad72';
-export const RESUME_API = 'https://api.npoint.io/a6717183b4ff692c2c4c';
+export const KEYS_API = 'https://api.npoint.io/a6717183b4ff692c2c4c';
 
-export const RESUME_DATA = {
+export const KEYS_DATA = {
   "name": "Prashanth Molakala",
   "bio": "Software engineering lead with seven years of hands on technical expertise and passion towards architecting, building and providing solutions for software products",
   "experience": [
@@ -49,7 +49,8 @@ export const COMMANDS_DATA = [
   {
     "text": "start execution of resume",
     "isCmd": true,
-    "timeout": 150
+    "timeout": 150,
+    "loadscale": 5
   },
   {
     "text": "fetching resume data",

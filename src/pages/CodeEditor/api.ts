@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { fetchLocationQuerParams, parseJSON, validURL } from '../../utils';
-import { COMMANDS_API, COMMANDS_DATA, RESUME_API, RESUME_DATA } from '../../utils/constants';
+import { COMMANDS_API, COMMANDS_DATA, KEYS_API, KEYS_DATA } from '../../utils/constants';
 
-export const fetchResume = async (api: string = RESUME_API) => {
-  const { data: resume } = await axios(api);
+export const fetchKeys = async (api: string = KEYS_API) => {
+  const { data: keys } = await axios(api);
 
-  return resume;
+  return keys;
 }
 
 export const fetchRawCommands = async (api: string = COMMANDS_API) => {
@@ -17,7 +17,7 @@ export const fetchRawCommands = async (api: string = COMMANDS_API) => {
 export const processCommands = async (searchQuery?: string) => {
   try {
     let cmds: any[] = COMMANDS_DATA;
-    let resume: any = RESUME_DATA;
+    let keys: any = KEYS_DATA;
     let rawCommands: any[] = [];
     const processData = async (init: Function, value?: string) => {
       if (value) {
@@ -42,23 +42,23 @@ export const processCommands = async (searchQuery?: string) => {
         const queryParams = fetchLocationQuerParams(searchQuery);
   
         cmds = await processData(fetchRawCommands, queryParams['cmds']);
-        resume = await processData(fetchResume, queryParams['resume']);
+        keys = await processData(fetchKeys, queryParams['keys']);
       } else {
         cmds = await fetchRawCommands();
-        resume = await fetchResume();
+        keys = await fetchKeys();
       }
     } catch (error) {
       console.log('error fetching data', error);
     }
 
     console.log('cmds: ', cmds);
-    console.log('resume: ', resume);
+    console.log('keys: ', keys);
 
     cmds.forEach((cmd: any) => {
       if (cmd.key) {
-        if (resume[cmd.key]) {
-          if(Array.isArray(resume[cmd.key])) {
-            resume[cmd.key].forEach((text: string) => {
+        if (keys[cmd.key]) {
+          if(Array.isArray(keys[cmd.key])) {
+            keys[cmd.key].forEach((text: string) => {
               rawCommands = [
                 ...rawCommands,
                 {
@@ -71,7 +71,7 @@ export const processCommands = async (searchQuery?: string) => {
             rawCommands = [
               ...rawCommands,
               {
-                text: resume[cmd.key],
+                text: keys[cmd.key],
                 ...cmd,
               }
             ]  

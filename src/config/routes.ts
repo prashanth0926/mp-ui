@@ -105,9 +105,9 @@ const routes: Array<Route> = [
     ],
   },
   {
-    key: 'resume',
-    title: 'Resume',
-    description: 'Resume loader',
+    key: 'cmd',
+    title: 'Terminal',
+    description: 'CMD Terminal',
     component: CodeEditor,
     path: '/',
     isEnabled: true,

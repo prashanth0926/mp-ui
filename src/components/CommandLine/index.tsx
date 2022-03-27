@@ -22,15 +22,14 @@ export const CommandLine = ({ rawCommands }: any) => {
       let i = 0;
 
       if (rawCommands) {
+        console.log('processed cmds: ', rawCommands);
         for (const c of rawCommands) {
           i++;
           setCommands((prev) => [...prev, c]);
-          if (i < rawCommands.length - 1) {
-            if (c.isCmd) {
-              await timeout(c.text.length * (c.timeout || DEFAULT_TIMEOUT_MILLI) + 250);
-            } else {
-              await timeout((c.timeout || DEFAULT_TIMEOUT_MILLI) + 250);
-            }
+          if (c.isCmd) {
+            await timeout(c.text.length * (c.timeout || DEFAULT_TIMEOUT_MILLI) + ((c.timeout || DEFAULT_TIMEOUT_MILLI) * (c.loadscale || 3)));
+          } else {
+            await timeout((c.timeout || DEFAULT_TIMEOUT_MILLI) + (((c.timeout || DEFAULT_TIMEOUT_MILLI) / 2) * (c.loadscale || 1)));
           }
         }
       }

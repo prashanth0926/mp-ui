@@ -8,7 +8,7 @@ import { routes } from '../../../config';
 import { Route } from '../../../types';
 
 export const Routes = () => {
-  const [routesState, setRoutesStage] = useState<Route[]>(routes);
+  const [routesState, setRoutesStage] = useState<Route[]>(routes.filter(r => !r.isExternal));
 
   const handleMenuClick = (route: Route) => {
     const items = routesState.map((item) => {
