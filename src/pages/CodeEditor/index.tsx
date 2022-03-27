@@ -25,7 +25,7 @@ export const CodeEditor = () => {
     }
 
     update();
-  }, [location]);
+  }, [location.search]);
 
   return (
     // <Container>
