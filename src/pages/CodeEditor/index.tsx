@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { processCommands } from './api';
 import { CommandLine } from '../../components/CommandLine';
+import { useLocation } from 'react-router-dom';
 
 interface CMD {
   text: string;
@@ -12,10 +13,11 @@ interface CMD {
 
 export const CodeEditor = () => {
   const [commands, setCommands] = useState<CMD[]>([]);
+  const location = useLocation();
 
   useEffect(() => {
     const update = async () => {
-      const rawCommands: CMD[] | undefined = await processCommands();
+      const rawCommands: CMD[] | undefined = await processCommands(location?.search);
       
       if (rawCommands) {
         setCommands(rawCommands);
@@ -23,7 +25,7 @@ export const CodeEditor = () => {
     }
 
     update();
-  }, []);
+  }, [location]);
 
   return (
     // <Container>

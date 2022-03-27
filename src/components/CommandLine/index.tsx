@@ -1,6 +1,5 @@
 import { styled, Container, List, ListItem, Card, ListItemText, Tooltip } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { LetterWriter } from '../LetterWriter';
 import { DEFAULT_TIMEOUT_MILLI } from '../../utils/constants';
@@ -17,7 +16,6 @@ export const CommandLine = ({ rawCommands }: any) => {
   const [hoverStatus, setHover] = useState<(undefined | boolean)[]>([]);
   const scrollRef = useRef<null | HTMLLIElement>(null);
   const textRefs = useRef<(null | HTMLElement)[]>([]);
-  const location = useLocation();
 
   useEffect(() => {
     const update = async () => {
@@ -39,7 +37,7 @@ export const CommandLine = ({ rawCommands }: any) => {
     }
 
     update();
-  }, [location, rawCommands]);
+  }, [rawCommands]);
 
   useEffect(() => {
     if (scrollRef.current) {
